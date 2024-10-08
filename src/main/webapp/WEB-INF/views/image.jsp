@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="cpath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,7 +64,7 @@
              <c:if test="${img.type==1}">
 	             <div class="col-lg-3 col-md-4 col-sm-2">
 	               <div class="img-container">
-	                <img src="/MF01/download.do?book_num=${img.book_num}&path=${img.path}" class="img-fluid" />
+	                <img src="${cpath}/download.do?book_num=${img.book_num}&path=${img.path}" class="img-fluid" />
 	                <div class="delete-btn" style="cursor:pointer;" onclick="deleteImage(${img.id})">X</div>
 	               </div>
 	             </div>
@@ -88,7 +89,7 @@
              <c:if test="${img.type==2}">
 	             <div class="col-lg-3 col-md-4 col-sm-2">
 	               <div class="img-container">
-	                <img src="/MF01/download.do?book_num=${img.book_num}&path=${img.path}" class="img-fluid" />
+	                <img src="${cpath}/download.do?book_num=${img.book_num}&path=${img.path}" class="img-fluid" />
 	                <div class="delete-btn" style="cursor:pointer;" onclick="deleteImage(${img.id})">X</div>
 	               </div>
 	             </div>
@@ -123,7 +124,7 @@
              <c:if test="${img.type==3}">
 	             <div class="col-lg-6 col-md-4">
 	               <div class="img-container">
-	                <img src="/MF01/download.do?book_num=${img.book_num}&path=${img.path}" class="img-fluid" />
+	                <img src="${cpath}/download.do?book_num=${img.book_num}&path=${img.path}" class="img-fluid" />
 	                <div class="delete-btn" style="cursor:pointer;" onclick="deleteImage(${img.id})">X</div>
 	               </div>
 	             </div>
@@ -133,7 +134,7 @@
         </div>
       </div>
        <div class="mb-3 row m-auto">
-        <button type="button" class="btn btn-sm btn-dark" onclick="location.href='/MF01/list.do'">목록으로</button>
+        <button type="button" class="btn btn-sm btn-dark" onclick="location.href='${cpath}/list.do'">목록으로</button>
       </div>
 
         </div>
@@ -144,7 +145,7 @@
 <script>
         document.addEventListener("DOMContentLoaded", function() {
             // "fileInput" 클래스를 가진 모든 요소에 대해 이벤트 리스너 등록
-            var fileInputs = document.querySelectorAll(".fileInput");
+            var fileInputs = document.querySelectorAll(".fileInput"); // 3개
 
             fileInputs.forEach(function(input) {
                 input.addEventListener("change", function(e) {
@@ -152,10 +153,10 @@
                     if (files && files.length > 0) {
                         var formData = new FormData();
                         for (var i = 0; i < files.length; i++) {
-                            formData.append("files", files[i]);
+                            formData.append("files", files[i]); // files=aaaa.jpg,files=aaaa.png.....
                         }
                         // `data-type` 속성을 사용하여 type 값을 가져옵니다.
-                        var type = input.getAttribute("data-type");
+                        var type = input.getAttribute("data-type"); // 1, 2, 3
 
                         // formData와 type을 사용하여 업로드 함수 호출
                         uploadFiles(formData, type);
@@ -168,7 +169,7 @@
             var book_num = document.getElementById("book_num").innerText;
             formData.append('book_num', book_num);
             formData.append('type', type);
-
+         //  ajax(중요) 다음시간 ....................................................
          fetch('upload.do', {
              method: 'POST',
              body: formData,
@@ -177,7 +178,7 @@
          .then(data => {
              if(data.status === "success") {
                  alert(data.message); // 성공 메시지 표시
-                 window.location.href = "/MF01/imageGet.do?book_num=" + parseInt(book_num); // 페이지 리다이렉션
+                 window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num); // 페이지 리다이렉션
              } else {
                  // 처리 실패에 대한 적절한 사용자 피드백
                  alert("Upload failed");
@@ -197,7 +198,7 @@
         .then(response => {
             if (response.ok) {
                 alert("Deleted");
-                window.location.href = "/MF01/imageGet.do?book_num=" + parseInt(book_num);
+                window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num);
             } else {
                 return Promise.reject('Failed to delete');
             }
@@ -208,6 +209,5 @@
     }
 
 </script>
-
 </body>
 </html>
