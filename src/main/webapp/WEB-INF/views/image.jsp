@@ -180,7 +180,7 @@
          .then(data => {
              if(data.status === "success") {
                  alert(data.message); // 성공 메시지 표시
-                 //window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num); // 페이지 리다이렉션
+                 window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num); // 페이지 리다이렉션
              } else {
                  // 처리 실패에 대한 적절한 사용자 피드백
                  alert("Upload failed");
@@ -198,7 +198,7 @@
             method: 'GET'
         })
         .then(response => {
-            if (response.ok) {
+            if (response.ok) { // ok=true, false
                 alert("Deleted");
                 window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num);
             } else {

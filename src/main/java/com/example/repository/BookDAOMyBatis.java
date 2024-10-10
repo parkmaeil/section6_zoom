@@ -51,4 +51,17 @@ public class BookDAOMyBatis { // 리팩토링 => 중앙집중식 관리, 코드�
             session.commit(); // 완료
         }
     }
+
+    public List<ImageDTO> imageList(int num) {
+        try(SqlSession session=MyBatisUtil.openSession()){
+            return  session.selectList("imageList", num);
+        }
+    }
+
+    public ImageDTO getImagePathById(int id) {
+        try(SqlSession session=MyBatisUtil.openSession()){
+            ImageDTO dto=session.selectOne("getImagePathById", id);
+            return dto;
+        }
+    }
 }

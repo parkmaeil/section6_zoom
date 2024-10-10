@@ -35,5 +35,16 @@
         VALUES (#{book_num}, #{type}, #{path})
     </insert>
 
+    <select id="imageList" resultType="com.example.entity.ImageDTO">
+        select * from bookimage where book_num=#{num}
+    </select>
+
+    <select id="getImagePathById"  resultType="com.example.entity.ImageDTO">
+        select * from bookimage where id=#{id}
+    </select>
+
+    <delete id="deleteImageById">
+        delete from bookimage where id=#{id}
+    </delete>
 
 </mapper>
