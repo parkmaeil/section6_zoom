@@ -30,4 +30,10 @@
         where num=#{num}
     </update>
 
+    <insert id="saveImage" parameterType="com.example.entity.ImageDTO">
+        INSERT INTO bookimage (book_num, type, path)
+        VALUES (#{book_num}, #{type}, #{path})
+    </insert>
+
+
 </mapper>

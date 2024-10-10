@@ -170,15 +170,17 @@
             formData.append('book_num', book_num);
             formData.append('type', type);
          //  ajax(중요) 다음시간 ....................................................
+         // fetch().then().then().catch();
+
          fetch('upload.do', {
              method: 'POST',
              body: formData,
          })
-         .then(response => response.json()) // 서버로부터 받은 응답을 JSON으로 파싱
+         .then(response => response.json()) // 서버로부터 받은 응답(JSON:문자열)을 JSON으로 파싱
          .then(data => {
              if(data.status === "success") {
                  alert(data.message); // 성공 메시지 표시
-                 window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num); // 페이지 리다이렉션
+                 //window.location.href = "${cpath}/imageGet.do?book_num=" + parseInt(book_num); // 페이지 리다이렉션
              } else {
                  // 처리 실패에 대한 적절한 사용자 피드백
                  alert("Upload failed");

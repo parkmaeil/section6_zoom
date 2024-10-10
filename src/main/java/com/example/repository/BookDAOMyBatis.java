@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.entity.BookDTO;
+import com.example.entity.ImageDTO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -44,5 +45,10 @@ public class BookDAOMyBatis { // 리팩토링 => 중앙집중식 관리, 코드�
             return cnt;
         }
     }
-
+    public void saveImage(ImageDTO imageDTO) {
+        try(SqlSession session=MyBatisUtil.openSession()){
+            session.insert("saveImage", imageDTO);
+            session.commit(); // 완료
+        }
+    }
 }
