@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.BookDTO;
+import com.example.entity.BookImageDTO;
 import com.example.repository.BookDAOMyBatis;
 
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ public class BookUpdateGetController implements  Controller {
                                                                                                                  throws ServletException, IOException {
         int num=Integer.parseInt(req.getParameter("num")); // "3"->3
         BookDAOMyBatis dao=new BookDAOMyBatis();
-        BookDTO book=dao.bookView(num);
+        BookImageDTO book=dao.bookView(num);
 
         req.setAttribute("book",book);
        // RequestDispatcher rd=req.getRequestDispatcher("/WEB-INF/views/update.jsp");

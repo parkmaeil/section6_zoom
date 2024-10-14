@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import com.example.entity.BookDTO;
+import com.example.entity.BookImageDTO;
 import com.example.entity.ImageDTO;
 import org.apache.ibatis.session.SqlSession;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class BookDAOMyBatis { // 리팩토링 => 중앙집중식 관리, 코드의 간결성, 자원의관리의 효율성
 
-        public List<BookDTO> bookList(){
+        public List<BookImageDTO> bookList(){
             try(SqlSession session=MyBatisUtil.openSession()){ // close()
                  return session.selectList("com.example.repository.BookDAO.bookList");
             }
@@ -31,9 +32,9 @@ public class BookDAOMyBatis { // 리팩토링 => 중앙집중식 관리, 코드�
            }
        }
 
-       public BookDTO bookView(int num){
+       public BookImageDTO bookView(int num){
            try(SqlSession session=MyBatisUtil.openSession()){
-               BookDTO dto=session.selectOne("bookView", num);
+               BookImageDTO dto=session.selectOne("bookView", num);
                return dto;
            }
        }
@@ -62,6 +63,12 @@ public class BookDAOMyBatis { // 리팩토링 => 중앙집중식 관리, 코드�
         try(SqlSession session=MyBatisUtil.openSession()){
             ImageDTO dto=session.selectOne("getImagePathById", id);
             return dto;
+        }
+    }
+
+    public List<ImageDTO> getImages(int num) {
+        try(SqlSession session=MyBatisUtil.openSession()){
+               return session.selectList("getImages", num);
         }
     }
 }

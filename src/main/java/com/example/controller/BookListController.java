@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.BookDTO;
+import com.example.entity.BookImageDTO;
 import com.example.repository.BookDAOMyBatis;
 
 import javax.servlet.ServletException;
@@ -16,7 +17,7 @@ public class BookListController  implements  Controller{ // POJO
         //Model과연동하는 부분
         BookDAOMyBatis dao=new BookDAOMyBatis();
 
-        List<BookDTO> list=dao.bookList();
+        List<BookImageDTO> list=dao.bookList();
        // 객체 바인딩 기술
         req.setAttribute("list", list); // ${list}
 

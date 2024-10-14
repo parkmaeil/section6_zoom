@@ -46,7 +46,12 @@ pageEncoding="UTF-8"%>
               <tbody>
               <c:forEach var="book" items="${list}">
                                   <tr>
-                                       <td>이미지를 등록하세요</td>
+                                       <c:if test="${!empty  book.path}">
+                                            <td><img  src="${cpath}/download.do?book_num=${book.book_num}&path=${book.path}" style="height:100px;width:80px"/></td>
+                                       </c:if>
+                                       <c:if test="${empty  book.path}">
+                                             <td>이미지를 등록하세요</td>
+                                       </c:if>
                                        <td>${book.num}</td>
                                        <td><a href="${cpath}/view.do?num=${book.num}">${book.title}</a></td>
                                        <td>${book.price}</td>

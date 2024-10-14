@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.entity.BookDTO;
+import com.example.entity.BookImageDTO;
 import com.example.entity.ImageDTO;
 import com.example.repository.BookDAOMyBatis;
 
@@ -19,7 +20,7 @@ public class BookImageGetController  implements  Controller{
         int book_num=Integer.parseInt(req.getParameter("book_num"));
 
         BookDAOMyBatis dao=new BookDAOMyBatis();
-        BookDTO dto=dao.bookView(book_num);
+        BookImageDTO dto=dao.bookView(book_num);
         req.setAttribute("book", dto);
 
         // 책에 대한 이미지 정보를 가져와서 뷰에 넘겨줘야 한다.(중요)

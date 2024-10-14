@@ -4,8 +4,10 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.repository.BookDAO">
 
-     <select id="bookList" resultType="com.example.entity.BookDTO">
-         select * from book order by title asc
+     <select id="bookList" resultType="com.example.entity.BookImageDTO">
+         select * from book b
+         LEFT JOIN (select * from bookimage where type=1) bi
+         ON b.num=bi.book_num
      </select>
 
     <delete id="bookDelete">
@@ -17,8 +19,11 @@
         values(#{title},#{price},#{author},#{page})
     </insert>
 
-    <select id="bookView" resultType="com.example.entity.BookDTO">
-        select * from book where num=#{num}
+    <select id="bookView" resultType="com.example.entity.BookImageDTO">
+        select * from book b
+        LEFT JOIN (select * from bookimage where type=3) bi
+        ON b.num=bi.book_num
+        where b.num=#{num}
     </select>
 
     <update id="bookUpdate" parameterType="com.example.entity.BookDTO">
@@ -47,4 +52,8 @@
         delete from bookimage where id=#{id}
     </delete>
 
+    <select id="getImages" resultType="com.example.entity.ImageDTO">
+          select * from bookimage
+          where book_num=#{num} and type=2
+    </select>
 </mapper>
